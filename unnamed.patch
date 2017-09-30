@@ -1,0 +1,629 @@
+Index: pom.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- pom.xml	(revision )
++++ pom.xml	(revision )
+@@ -0,0 +1,172 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project xmlns="http://maven.apache.org/POM/4.0.0"
++         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
++         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
++    <modelVersion>4.0.0</modelVersion>
++
++    <groupId>com._21cn.liujm</groupId>
++    <artifactId>Recommend</artifactId>
++    <version>1.0-SNAPSHOT</version>
++
++    <dependencies>
++        <dependency>
++            <groupId>org.ujmp</groupId>
++            <artifactId>ujmp-core</artifactId>
++            <version>0.3.0</version>
++        </dependency>
++        <dependency>
++            <groupId>org.ujmp</groupId>
++            <artifactId>ujmp-gui</artifactId>
++            <version>0.3.0</version>
++        </dependency>
++
++        <dependency>
++            <groupId>org.ujmp</groupId>
++            <artifactId>ujmp-colt</artifactId>
++            <version>0.3.0</version>
++        </dependency>
++        <dependency>
++            <groupId>org.ujmp</groupId>
++            <artifactId>ujmp-commonsmath</artifactId>
++            <version>0.3.0</version>
++        </dependency>
++        <dependency>
++            <groupId>org.ujmp</groupId>
++            <artifactId>ujmp-complete</artifactId>
++            <version>0.3.0</version>
++        </dependency>
++        <dependency>
++            <groupId>org.ujmp</groupId>
++            <artifactId>ujmp-ehcache</artifactId>
++            <version>0.3.0</version>
++        </dependency>
++        <dependency>
++            <groupId>org.ujmp</groupId>
++            <artifactId>ujmp-ejml</artifactId>
++            <version>0.3.0</version>
++        </dependency>
++        <dependency>
++            <groupId>org.ujmp</groupId>
++            <artifactId>ujmp-elasticsearch</artifactId>
++            <version>0.3.0</version>
++        </dependency>
++        <dependency>
++            <groupId>org.ujmp</groupId>
++            <artifactId>ujmp-examples</artifactId>
++            <version>0.3.0</version>
++        </dependency>
++        <dependency>
++            <groupId>org.ujmp</groupId>
++            <artifactId>ujmp-hadoop</artifactId>
++            <version>0.3.0</version>
++        </dependency>
++        <dependency>
++            <groupId>org.ujmp</groupId>
++            <artifactId>ujmp-itext</artifactId>
++            <version>0.3.0</version>
++        </dependency>
++        <dependency>
++            <groupId>org.ujmp</groupId>
++            <artifactId>ujmp-jackcess</artifactId>
++            <version>0.3.0</version>
++        </dependency>
++        <dependency>
++            <groupId>org.ujmp</groupId>
++            <artifactId>ujmp-jama</artifactId>
++            <version>0.3.0</version>
++        </dependency>
++        <dependency>
++            <groupId>org.ujmp</groupId>
++            <artifactId>ujmp-jblas</artifactId>
++            <version>0.3.0</version>
++        </dependency>
++        <dependency>
++            <groupId>org.ujmp</groupId>
++            <artifactId>ujmp-jdbc</artifactId>
++            <version>0.3.0</version>
++        </dependency>
++        <dependency>
++            <groupId>org.ujmp</groupId>
++            <artifactId>ujmp-jetty</artifactId>
++            <version>0.3.0</version>
++        </dependency>
++        <dependency>
++            <groupId>org.ujmp</groupId>
++            <artifactId>ujmp-jfreechart</artifactId>
++            <version>0.3.0</version>
++        </dependency>
++        <dependency>
++            <groupId>org.ujmp</groupId>
++            <artifactId>ujmp-jmatio</artifactId>
++            <version>0.3.0</version>
++        </dependency>
++        <dependency>
++            <groupId>org.ujmp</groupId>
++            <artifactId>ujmp-jsch</artifactId>
++            <version>0.3.0</version>
++        </dependency>
++        <dependency>
++            <groupId>org.ujmp</groupId>
++            <artifactId>ujmp-jsci</artifactId>
++            <version>0.3.0</version>
++        </dependency>
++        <dependency>
++            <groupId>org.ujmp</groupId>
++            <artifactId>ujmp-jscience</artifactId>
++            <version>0.3.0</version>
++        </dependency>
++        <dependency>
++            <groupId>org.ujmp</groupId>
++            <artifactId>ujmp-jung</artifactId>
++            <version>0.3.0</version>
++        </dependency>
++        <dependency>
++            <groupId>org.ujmp</groupId>
++            <artifactId>ujmp-la4j</artifactId>
++            <version>0.3.0</version>
++        </dependency>
++        <dependency>
++            <groupId>org.ujmp</groupId>
++            <artifactId>ujmp-lucene</artifactId>
++            <version>0.3.0</version>
++        </dependency>
++        <dependency>
++            <groupId>org.ujmp</groupId>
++            <artifactId>ujmp-mail</artifactId>
++            <version>0.3.0</version>
++        </dependency>
++        <dependency>
++            <groupId>org.ujmp</groupId>
++            <artifactId>ujmp-mtj</artifactId>
++            <version>0.3.0</version>
++        </dependency>
++        <dependency>
++            <groupId>org.ujmp</groupId>
++            <artifactId>ujmp-ojalgo</artifactId>
++            <version>0.3.0</version>
++        </dependency>
++        <dependency>
++            <groupId>org.ujmp</groupId>
++            <artifactId>ujmp-parallelcolt</artifactId>
++            <version>0.3.0</version>
++        </dependency>
++        <dependency>
++            <groupId>org.ujmp</groupId>
++            <artifactId>ujmp-pdfbox</artifactId>
++            <version>0.3.0</version>
++        </dependency>
++        <dependency>
++            <groupId>org.ujmp</groupId>
++            <artifactId>ujmp-poi</artifactId>
++            <version>0.3.0</version>
++        </dependency>
++        <dependency>
++            <groupId>org.ujmp</groupId>
++            <artifactId>ujmp-vecmath</artifactId>
++            <version>0.3.0</version>
++        </dependency>
++
++    </dependencies>
++
++
++</project>
+\ No newline at end of file
+Index: src/main/java/main/Main.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/main/Main.java	(revision )
++++ src/main/java/main/Main.java	(revision )
+@@ -0,0 +1,52 @@
++package main;
++
++/**
++ * @version: 1.0
++ * @author: Liujm
++ * @site: https://github.com/liujm7
++ * @contact: kaka206@163.com
++ * @software: Idea
++ * @date： 2017/9/30
++ * @package_name: main
++ */
++
++import org.ujmp.core.*;
++import org.ujmp.core.calculation.Calculation;
++
++import java.io.File;
++import java.io.FileNotFoundException;
++import java.util.*;
++
++import static common.Utils.*;
++
++public class Main {
++    public static void main(String[] args) {
++//        dense.setAsDouble(5.0, 2, 3);
++//        System.out.println(dense);
++//        Matrix sparse = SparseMatrix.Factory.zeros(4, 5);
++//        sparse.setAsDouble(2.0, 0, 0);
++//        long[] a = sparse.getSize();
++//        for (Long i : a) {
++//            System.out.println(i);
++//        }
++//        System.out.println(sparse.getSize(0));
++//        System.out.println(sparse.getSize(1));
++//        System.out.println(sparse.getAsDouble(0,0));
++//        System.out.println(a);
++        Matrix ratingsMatrix = readFileAsRatingsMatrix("D:\\work\\liujm\\2017\\9\\20170911\\ml-100k\\ml-100k\\u.data");
++//////        Matrix itemsFeatureMatrix = readFileAsItemsFeatureMatrix("D:\\work\\liujm\\2017\\9\\20170911\\ml-100k\\ml-100k\\u.item");
++//////        Long userCounts = ratingsMatrix.getSize(0);
++//////        Long itemCounts = ratingsMatrix.getSize(1);
++//////        Long featuresCounts = itemsFeatureMatrix.getSize(1);
++//
++        Matrix test = impulation(ratingsMatrix, "userAverage");
++//        Double sim = getSimilarity(test.selectColumns(Calculation.Ret.NEW, 0).transpose(), test.selectColumns(Calculation.Ret.NEW, 0).transpose(), "else");
++//        System.out.println(sim);
++        Matrix itemsSimilarityMatrix=getItemsSimilarityMatrix(test,"cosine");
++        System.out.println(itemsSimilarityMatrix.getRowCount());
++        System.out.println(itemsSimilarityMatrix.getColumnCount());
++//        System.out.println(getItemsSimilarityMatrix(test,"cosine"));
++
++
++    }
++}
+Index: src/main/java/recommend/UserBasedCF.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/recommend/UserBasedCF.java	(revision )
++++ src/main/java/recommend/UserBasedCF.java	(revision )
+@@ -0,0 +1,89 @@
++package recommend;
++
++import org.ujmp.core.DenseMatrix;
++import org.ujmp.core.Matrix;
++import org.ujmp.core.calculation.Calculation;
++
++
++import static common.Utils.getUserSimilarityMatrix;
++
++/**
++ * @version: 1.0
++ * @author: Liujm
++ * @site: https://github.com/liujm7
++ * @contact: kaka206@163.com
++ * @software: Idea
++ * @date： 2017/9/30
++ * @package_name: recommend
++ */
++public class UserBasedCF {
++    private Matrix ratingsMatrix;
++    private Integer K;
++    private String type;
++    private Long userCounts;
++    private Long itemCounts;
++    private Matrix userSimilarityMatrix;
++
++    public UserBasedCF(Matrix ratingsMatrix, Integer K, String type) {
++        this.ratingsMatrix = ratingsMatrix;
++        this.K = K;
++        this.type = type;
++        this.userCounts = ratingsMatrix.getRowCount();
++        this.itemCounts = ratingsMatrix.getColumnCount();
++        this.userSimilarityMatrix = getUserSimilarityMatrix(this.ratingsMatrix, this.type);
++        if (K != -1){
++            Matrix userNeighsSimilarityMatrix = DenseMatrix.Factory.zeros(this.userCounts,this.userCounts);
++            for(int i=0;i<this.userCounts;i++){
++//                userSimilarityMatrix.selectRows(Calculation.Ret.NEW,i)
++            }
++        }
++    }
++
++    public Matrix getRatingsMatrix() {
++        return ratingsMatrix;
++    }
++
++    public void setRatingsMatrix(Matrix ratingsMatrix) {
++        this.ratingsMatrix = ratingsMatrix;
++    }
++
++    public Integer getK() {
++        return K;
++    }
++
++    public void setK(Integer k) {
++        K = k;
++    }
++
++    public String getType() {
++        return type;
++    }
++
++    public void setType(String type) {
++        this.type = type;
++    }
++
++    public Long getUserCounts() {
++        return userCounts;
++    }
++
++    public void setUserCounts(Long userCounts) {
++        this.userCounts = userCounts;
++    }
++
++    public Long getItemCounts() {
++        return itemCounts;
++    }
++
++    public void setItemCounts(Long itemCounts) {
++        this.itemCounts = itemCounts;
++    }
++
++    public Matrix getUserSimilarityMatrix(Matrix ratingsMatrix, String type) {
++        return userSimilarityMatrix;
++    }
++
++    public void setUserSimilarityMatrix(Matrix userSimilarityMatrix) {
++        this.userSimilarityMatrix = userSimilarityMatrix;
++    }
++}
+Index: Recommend.iml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- Recommend.iml	(revision )
++++ Recommend.iml	(revision )
+@@ -0,0 +1,172 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<module org.jetbrains.idea.maven.project.MavenProjectsManager.isMavenModule="true" type="JAVA_MODULE" version="4">
++  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_5">
++    <output url="file://$MODULE_DIR$/target/classes" />
++    <output-test url="file://$MODULE_DIR$/target/test-classes" />
++    <content url="file://$MODULE_DIR$">
++      <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
++      <sourceFolder url="file://$MODULE_DIR$/src/main/resources" type="java-resource" />
++      <sourceFolder url="file://$MODULE_DIR$/src/test/java" isTestSource="true" />
++      <excludeFolder url="file://$MODULE_DIR$/target" />
++    </content>
++    <orderEntry type="inheritedJdk" />
++    <orderEntry type="sourceFolder" forTests="false" />
++    <orderEntry type="library" name="Maven: org.ujmp:ujmp-core:0.3.0" level="project" />
++    <orderEntry type="library" name="Maven: org.json:json:20141113" level="project" />
++    <orderEntry type="library" name="Maven: org.ujmp:ujmp-gui:0.3.0" level="project" />
++    <orderEntry type="library" name="Maven: org.ujmp:ujmp-colt:0.3.0" level="project" />
++    <orderEntry type="library" name="Maven: colt:colt:1.2.0" level="project" />
++    <orderEntry type="library" name="Maven: concurrent:concurrent:1.3.4" level="project" />
++    <orderEntry type="library" name="Maven: org.ujmp:ujmp-commonsmath:0.3.0" level="project" />
++    <orderEntry type="library" name="Maven: org.apache.commons:commons-math3:3.2" level="project" />
++    <orderEntry type="library" name="Maven: org.ujmp:ujmp-complete:0.3.0" level="project" />
++    <orderEntry type="library" name="Maven: org.ujmp:ujmp-ehcache:0.3.0" level="project" />
++    <orderEntry type="library" name="Maven: net.sf.ehcache:ehcache:2.8.0" level="project" />
++    <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.6.6" level="project" />
++    <orderEntry type="library" name="Maven: org.ujmp:ujmp-ejml:0.3.0" level="project" />
++    <orderEntry type="library" name="Maven: com.googlecode.efficient-java-matrix-library:core:0.26" level="project" />
++    <orderEntry type="library" name="Maven: org.ujmp:ujmp-elasticsearch:0.3.0" level="project" />
++    <orderEntry type="library" name="Maven: org.elasticsearch:elasticsearch:1.0.0" level="project" />
++    <orderEntry type="library" name="Maven: org.apache.lucene:lucene-codecs:4.6.1" level="project" />
++    <orderEntry type="library" name="Maven: org.apache.lucene:lucene-memory:4.6.1" level="project" />
++    <orderEntry type="library" name="Maven: org.apache.lucene:lucene-highlighter:4.6.1" level="project" />
++    <orderEntry type="library" name="Maven: org.apache.lucene:lucene-sandbox:4.6.1" level="project" />
++    <orderEntry type="library" name="Maven: org.apache.lucene:lucene-suggest:4.6.1" level="project" />
++    <orderEntry type="library" name="Maven: org.apache.lucene:lucene-misc:4.6.1" level="project" />
++    <orderEntry type="library" name="Maven: org.apache.lucene:lucene-join:4.6.1" level="project" />
++    <orderEntry type="library" name="Maven: org.apache.lucene:lucene-grouping:4.6.1" level="project" />
++    <orderEntry type="library" name="Maven: org.apache.lucene:lucene-spatial:4.6.1" level="project" />
++    <orderEntry type="library" name="Maven: com.spatial4j:spatial4j:0.3" level="project" />
++    <orderEntry type="library" name="Maven: org.ujmp:ujmp-examples:0.3.0" level="project" />
++    <orderEntry type="library" name="Maven: org.ujmp:ujmp-hadoop:0.3.0" level="project" />
++    <orderEntry type="library" name="Maven: org.apache.hadoop:hadoop-core:0.20.2" level="project" />
++    <orderEntry type="library" name="Maven: commons-cli:commons-cli:1.2" level="project" />
++    <orderEntry type="library" name="Maven: xmlenc:xmlenc:0.52" level="project" />
++    <orderEntry type="library" name="Maven: commons-httpclient:commons-httpclient:3.0.1" level="project" />
++    <orderEntry type="library" name="Maven: commons-codec:commons-codec:1.3" level="project" />
++    <orderEntry type="library" name="Maven: commons-net:commons-net:1.4.1" level="project" />
++    <orderEntry type="library" name="Maven: org.mortbay.jetty:jetty:6.1.14" level="project" />
++    <orderEntry type="library" name="Maven: org.mortbay.jetty:jetty-util:6.1.14" level="project" />
++    <orderEntry type="library" name="Maven: tomcat:jasper-runtime:5.5.12" level="project" />
++    <orderEntry type="library" name="Maven: tomcat:jasper-compiler:5.5.12" level="project" />
++    <orderEntry type="library" name="Maven: org.mortbay.jetty:jsp-api-2.1:6.1.14" level="project" />
++    <orderEntry type="library" name="Maven: org.mortbay.jetty:jsp-2.1:6.1.14" level="project" />
++    <orderEntry type="library" name="Maven: ant:ant:1.6.5" level="project" />
++    <orderEntry type="library" name="Maven: commons-el:commons-el:1.0" level="project" />
++    <orderEntry type="library" name="Maven: net.java.dev.jets3t:jets3t:0.7.1" level="project" />
++    <orderEntry type="library" name="Maven: org.mortbay.jetty:servlet-api-2.5:6.1.14" level="project" />
++    <orderEntry type="library" name="Maven: net.sf.kosmosfs:kfs:0.3" level="project" />
++    <orderEntry type="library" name="Maven: junit:junit:4.5" level="project" />
++    <orderEntry type="library" name="Maven: hsqldb:hsqldb:1.8.0.10" level="project" />
++    <orderEntry type="library" name="Maven: oro:oro:2.0.8" level="project" />
++    <orderEntry type="library" name="Maven: org.eclipse.jdt:core:3.1.1" level="project" />
++    <orderEntry type="library" name="Maven: org.ujmp:ujmp-itext:0.3.0" level="project" />
++    <orderEntry type="library" name="Maven: com.itextpdf:itextpdf:5.4.5" level="project" />
++    <orderEntry type="library" name="Maven: org.ujmp:ujmp-jackcess:0.3.0" level="project" />
++    <orderEntry type="library" name="Maven: com.healthmarketscience.jackcess:jackcess:2.0.2" level="project" />
++    <orderEntry type="library" name="Maven: commons-lang:commons-lang:2.0" level="project" />
++    <orderEntry type="library" name="Maven: commons-logging:commons-logging:1.0.3" level="project" />
++    <orderEntry type="library" name="Maven: org.ujmp:ujmp-jama:0.3.0" level="project" />
++    <orderEntry type="library" name="Maven: gov.nist.math:jama:1.0.3" level="project" />
++    <orderEntry type="library" name="Maven: org.ujmp:ujmp-jblas:0.3.0" level="project" />
++    <orderEntry type="library" name="Maven: org.jblas:jblas:1.2.3" level="project" />
++    <orderEntry type="library" name="Maven: org.ujmp:ujmp-jdbc:0.3.0" level="project" />
++    <orderEntry type="library" name="Maven: mysql:mysql-connector-java:5.1.18" level="project" />
++    <orderEntry type="library" name="Maven: postgresql:postgresql:9.1-901.jdbc4" level="project" />
++    <orderEntry type="library" name="Maven: org.apache.derby:derby:10.8.2.2" level="project" />
++    <orderEntry type="library" name="Maven: org.hsqldb:hsqldb:2.2.8" level="project" />
++    <orderEntry type="library" name="Maven: com.h2database:h2:1.4.177" level="project" />
++    <orderEntry type="library" name="Maven: org.xerial:sqlite-jdbc:3.7.2" level="project" />
++    <orderEntry type="library" name="Maven: org.ujmp:ujmp-jetty:0.3.0" level="project" />
++    <orderEntry type="library" name="Maven: org.eclipse.jetty:jetty-server:9.2.6.v20141205" level="project" />
++    <orderEntry type="library" name="Maven: javax.servlet:javax.servlet-api:3.1.0" level="project" />
++    <orderEntry type="library" name="Maven: org.eclipse.jetty:jetty-http:9.2.6.v20141205" level="project" />
++    <orderEntry type="library" name="Maven: org.eclipse.jetty:jetty-util:9.2.6.v20141205" level="project" />
++    <orderEntry type="library" name="Maven: org.eclipse.jetty:jetty-io:9.2.6.v20141205" level="project" />
++    <orderEntry type="library" name="Maven: org.ujmp:ujmp-jfreechart:0.3.0" level="project" />
++    <orderEntry type="library" name="Maven: org.jfree:jfreechart:1.0.15" level="project" />
++    <orderEntry type="library" name="Maven: org.jfree:jcommon:1.0.17" level="project" />
++    <orderEntry type="library" name="Maven: xml-apis:xml-apis:1.3.04" level="project" />
++    <orderEntry type="library" name="Maven: com.lowagie:itext:2.1.5" level="project" />
++    <orderEntry type="library" name="Maven: bouncycastle:bcmail-jdk14:138" level="project" />
++    <orderEntry type="library" name="Maven: bouncycastle:bcprov-jdk14:138" level="project" />
++    <orderEntry type="library" name="Maven: org.ujmp:ujmp-jmatio:0.3.0" level="project" />
++    <orderEntry type="library" name="Maven: net.sourceforge.jmatio:jmatio:1.0" level="project" />
++    <orderEntry type="library" name="Maven: org.ujmp:ujmp-jsch:0.3.0" level="project" />
++    <orderEntry type="library" name="Maven: com.jcraft:jsch:0.1.51" level="project" />
++    <orderEntry type="library" name="Maven: com.jcraft:jzlib:1.1.3" level="project" />
++    <orderEntry type="library" name="Maven: org.ujmp:ujmp-jsci:0.3.0" level="project" />
++    <orderEntry type="library" name="Maven: net.sf.jsci:jsci:1.2" level="project" />
++    <orderEntry type="library" name="Maven: net.sf.jsci:lpsolve:2003-11-03" level="project" />
++    <orderEntry type="library" name="Maven: org.axsl.org.w3c.dom.mathml:mathml-dom-java:2.0" level="project" />
++    <orderEntry type="library" name="Maven: xerces:xercesImpl:2.8.1" level="project" />
++    <orderEntry type="library" name="Maven: org.ujmp:ujmp-jscience:0.3.0" level="project" />
++    <orderEntry type="library" name="Maven: org.jscience:jscience:4.3.1" level="project" />
++    <orderEntry type="library" name="Maven: org.javolution:javolution:5.2.3" level="project" />
++    <orderEntry type="library" name="Maven: org.ujmp:ujmp-jung:0.3.0" level="project" />
++    <orderEntry type="library" name="Maven: net.sf.jung:jung-visualization:2.0.1" level="project" />
++    <orderEntry type="library" name="Maven: net.sf.jung:jung-api:2.0.1" level="project" />
++    <orderEntry type="library" name="Maven: net.sourceforge.collections:collections-generic:4.01" level="project" />
++    <orderEntry type="library" name="Maven: net.sf.jung:jung-algorithms:2.0.1" level="project" />
++    <orderEntry type="library" name="Maven: net.sf.jung:jung-samples:2.0.1" level="project" />
++    <orderEntry type="library" name="Maven: net.sf.jung:jung-graph-impl:2.0.1" level="project" />
++    <orderEntry type="library" name="Maven: net.sf.jung:jung-io:2.0.1" level="project" />
++    <orderEntry type="library" name="Maven: org.codehaus.woodstox:wstx-asl:3.2.6" level="project" />
++    <orderEntry type="library" name="Maven: stax:stax-api:1.0.1" level="project" />
++    <orderEntry type="library" name="Maven: org.ujmp:ujmp-la4j:0.3.0" level="project" />
++    <orderEntry type="library" name="Maven: org.la4j:la4j:0.5.5" level="project" />
++    <orderEntry type="library" name="Maven: org.ujmp:ujmp-lucene:0.3.0" level="project" />
++    <orderEntry type="library" name="Maven: org.apache.lucene:lucene-core:4.7.0" level="project" />
++    <orderEntry type="library" name="Maven: org.apache.lucene:lucene-queries:4.7.0" level="project" />
++    <orderEntry type="library" name="Maven: org.apache.lucene:lucene-analyzers-common:4.7.0" level="project" />
++    <orderEntry type="library" name="Maven: org.apache.lucene:lucene-queryparser:4.7.0" level="project" />
++    <orderEntry type="library" name="Maven: org.ujmp:ujmp-mail:0.3.0" level="project" />
++    <orderEntry type="library" name="Maven: javax.mail:mail:1.4.3" level="project" />
++    <orderEntry type="library" name="Maven: javax.activation:activation:1.1" level="project" />
++    <orderEntry type="library" name="Maven: org.ujmp:ujmp-mtj:0.3.0" level="project" />
++    <orderEntry type="library" name="Maven: com.googlecode.matrix-toolkits-java:mtj:1.0.1" level="project" />
++    <orderEntry type="library" name="Maven: net.sourceforge.f2j:arpack_combined_all:0.1" level="project" />
++    <orderEntry type="library" name="Maven: com.github.fommil.netlib:core:1.1.2" level="project" />
++    <orderEntry type="library" name="Maven: com.github.fommil.netlib:netlib-native_ref-osx-x86_64:natives:1.1" level="project" />
++    <orderEntry type="library" name="Maven: com.github.fommil.netlib:native_ref-java:1.1" level="project" />
++    <orderEntry type="library" name="Maven: com.github.fommil:jniloader:1.1" level="project" />
++    <orderEntry type="library" name="Maven: com.github.fommil.netlib:netlib-native_ref-linux-x86_64:natives:1.1" level="project" />
++    <orderEntry type="library" name="Maven: com.github.fommil.netlib:netlib-native_ref-linux-i686:natives:1.1" level="project" />
++    <orderEntry type="library" name="Maven: com.github.fommil.netlib:netlib-native_ref-win-x86_64:natives:1.1" level="project" />
++    <orderEntry type="library" name="Maven: com.github.fommil.netlib:netlib-native_ref-win-i686:natives:1.1" level="project" />
++    <orderEntry type="library" name="Maven: com.github.fommil.netlib:netlib-native_ref-linux-armhf:natives:1.1" level="project" />
++    <orderEntry type="library" name="Maven: com.github.fommil.netlib:netlib-native_system-osx-x86_64:natives:1.1" level="project" />
++    <orderEntry type="library" name="Maven: com.github.fommil.netlib:native_system-java:1.1" level="project" />
++    <orderEntry type="library" name="Maven: com.github.fommil.netlib:netlib-native_system-linux-x86_64:natives:1.1" level="project" />
++    <orderEntry type="library" name="Maven: com.github.fommil.netlib:netlib-native_system-linux-i686:natives:1.1" level="project" />
++    <orderEntry type="library" name="Maven: com.github.fommil.netlib:netlib-native_system-linux-armhf:natives:1.1" level="project" />
++    <orderEntry type="library" name="Maven: com.github.fommil.netlib:netlib-native_system-win-x86_64:natives:1.1" level="project" />
++    <orderEntry type="library" name="Maven: com.github.fommil.netlib:netlib-native_system-win-i686:natives:1.1" level="project" />
++    <orderEntry type="library" name="Maven: org.ujmp:ujmp-ojalgo:0.3.0" level="project" />
++    <orderEntry type="library" name="Maven: org.ojalgo:ojalgo:31.0" level="project" />
++    <orderEntry type="library" name="Maven: org.ujmp:ujmp-parallelcolt:0.3.0" level="project" />
++    <orderEntry type="library" name="Maven: net.sourceforge.parallelcolt:parallelcolt:0.10.1" level="project" />
++    <orderEntry type="library" name="Maven: net.sourceforge.jplasma:jplasma:1.2.0" level="project" />
++    <orderEntry type="library" name="Maven: net.sourceforge.jplasma:core-lapack:0.1" level="project" />
++    <orderEntry type="library" name="Maven: net.sourceforge.jtransforms:jtransforms:2.4.0" level="project" />
++    <orderEntry type="library" name="Maven: net.sourceforge.csparsej:csparsej:1.1.1" level="project" />
++    <orderEntry type="library" name="Maven: net.sourceforge.parallelcolt:optimization:1.0" level="project" />
++    <orderEntry type="library" name="Maven: com.googlecode.netlib-java:netlib-java:0.9.3" level="project" />
++    <orderEntry type="library" name="Maven: com.github.rwl:JKLU:1.0.0" level="project" />
++    <orderEntry type="library" name="Maven: com.github.rwl:BTFJ:1.0.1" level="project" />
++    <orderEntry type="library" name="Maven: com.github.rwl:AMDJ:1.0.1" level="project" />
++    <orderEntry type="library" name="Maven: com.github.rwl:COLAMDJ:1.0.1" level="project" />
++    <orderEntry type="library" name="Maven: org.ujmp:ujmp-pdfbox:0.3.0" level="project" />
++    <orderEntry type="library" name="Maven: org.apache.pdfbox:pdfbox:1.8.8" level="project" />
++    <orderEntry type="library" name="Maven: org.apache.pdfbox:fontbox:1.8.8" level="project" />
++    <orderEntry type="library" name="Maven: org.apache.pdfbox:jempbox:1.8.8" level="project" />
++    <orderEntry type="library" name="Maven: org.ujmp:ujmp-poi:0.3.0" level="project" />
++    <orderEntry type="library" name="Maven: org.apache.poi:poi-ooxml:3.9" level="project" />
++    <orderEntry type="library" name="Maven: org.apache.poi:poi:3.9" level="project" />
++    <orderEntry type="library" name="Maven: org.apache.poi:poi-ooxml-schemas:3.9" level="project" />
++    <orderEntry type="library" name="Maven: org.apache.xmlbeans:xmlbeans:2.3.0" level="project" />
++    <orderEntry type="library" name="Maven: dom4j:dom4j:1.6.1" level="project" />
++    <orderEntry type="library" name="Maven: org.ujmp:ujmp-vecmath:0.3.0" level="project" />
++    <orderEntry type="library" name="Maven: java3d:vecmath:1.3.1" level="project" />
++  </component>
++</module>
+\ No newline at end of file
+Index: .idea/vcs.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/vcs.xml	(revision )
++++ .idea/vcs.xml	(revision )
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="VcsDirectoryMappings">
++    <mapping directory="$PROJECT_DIR$" vcs="Git" />
++  </component>
++</project>
+\ No newline at end of file
+diff --git target/classes/common/Utils.class target/classes/common/Utils.class
+new file mode 100644
+index 0000000000000000000000000000000000000000..d2610dc205f170b33d58005c276bdcc009cad82e
+GIT binary patch
+literal 7082
+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
+Giv15Q9saEV
+
+diff --git target/classes/main/Main.class target/classes/main/Main.class
+new file mode 100644
+index 0000000000000000000000000000000000000000..be9f8c3aed5d7aad39cb1686558e88d0a46255e5
+GIT binary patch
+literal 1041
+zc$}3}+foxj5IsWzn}p?JxO+uK34vr2L@|I|3d<^~fEH0+%*!N9#ev-&YIhdo6Z{-~
+z(CC97;73{ZY!tLAKA4B@p5Ezmx=(t(|M>b1KpC4E4B%D@(;3{xofPgGKa;{e<L{?2
+zi(EhEkk4Qq3nnU9C|YnB`qrc`^*Tc$H+R60+*XHzVW=v7u@`v_5xn9JmonL^YI660
+z2hyB>C6oHC3>o^X9+$qeOJ<dl=D;wXds98)r`&P5-*Rd?kbY}5rr<$~iblG8W*7*#
+zrYPLylzB%eRTZ?H=*T;9nko=ZCvRA^2sOi))WQpE(vvQ=rq6%ZWojx4n&O!>ZKh3U
+zMZ;!e5JL=0Pgm+^DmbpYlA!C0rSfvU61!5RT&{a=p<F5*U-+na$Thc6vPtSinl}nX
+zuyrZ|-V!z*V2NaGs*ohJ@eoTE9@$vNV+$1<D_FI#X5$IgZES!#PhW_|FnlS&i^h>?
+z(nNMsd7ko}*IK$H(?lTnp&4T<-2Ypee6EYW|B@>sy_3i#07a~ux$f8g18=e=^z-i0
+z|1neTJfu6cTPiaDRR>=x=Ouw_q7d98tkG^9q%u+LtFvtt`8r<D9a@?$2n^PVIk_}h
+zGPh$^Y>-N~l^c0}TupDlruSifJz!=9$PUxVA<xM7=0Agdh(BK;+ZQLtktJ()E?@+s
+z<kJ|Ve5d$55=fFSWP933ROhqFHhOm#vVCn>dmoW1d_kJw6EdB+KaMX+t`ZF}LpD#n
+u6$rkFY3gW!7RnIkJK&hWWZcp$rl^Kq2;I6yQ4dv2;W|YL%HD`^Z~g=?d-mr5
+
