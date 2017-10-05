@@ -163,7 +163,7 @@ public class Utils {
         return R_Tmp;
     }
 
-    public static Double getSimilarity(Matrix x, Matrix y, String type) {
+    public static Double calcSimilarity(Matrix x, Matrix y, String type) {
         /**
          * @Method_name: getSimilarity
          * @Description: 获取两行数据的相关性系数
@@ -190,9 +190,9 @@ public class Utils {
         return sim;
     }
 
-    public static Matrix getUserSimilarityMatrix(Matrix ratingsMatrix, String type) {
+    public static Matrix calcUserSimilarityMatrix(Matrix ratingsMatrix, String type) {
         /**
-         * @Method_name: getUserSimilarityMatrix
+         * @Method_name: calcUserSimilarityMatrix
          * @Description: 获取用户相似度矩阵
          * @Date: 2017/9/30
          * @Time: 16:36
@@ -204,7 +204,7 @@ public class Utils {
         for (int i = 0; i < rowCounts; i++) {
             userSimilarityMatrix.setAsDouble(1.0, i, i);
             for (int j = i + 1; j < rowCounts; j++) {
-                Double similarity = getSimilarity(ratingsMatrix.selectRows(Ret.NEW, i), ratingsMatrix.selectRows(Ret.NEW, j), type);
+                Double similarity = calcSimilarity(ratingsMatrix.selectRows(Ret.NEW, i), ratingsMatrix.selectRows(Ret.NEW, j), type);
                 userSimilarityMatrix.setAsDouble(similarity, i, j);
                 userSimilarityMatrix.setAsDouble(similarity, j, i);
             }
@@ -213,16 +213,16 @@ public class Utils {
     }
 
 
-    public static Matrix getItemsSimilarityMatrix(Matrix ratingsMatrix, String type) {
+    public static Matrix calcItemsSimilarityMatrix(Matrix ratingsMatrix, String type) {
         /**
-         * @Method_name: getItemsSimilarityMatrix
+         * @Method_name: calcItemsSimilarityMatrix
          * @Description: 获取商品相似度矩阵
          * @Date: 2017/9/30
          * @Time: 16:38
          * @param: [ratingsMatrix, type]
          * @return: org.ujmp.core.Matrix
          **/
-        return getUserSimilarityMatrix(ratingsMatrix.transpose(), type);
+        return calcUserSimilarityMatrix(ratingsMatrix.transpose(), type);
     }
 
 

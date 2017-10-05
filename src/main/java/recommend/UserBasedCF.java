@@ -2,10 +2,11 @@ package recommend;
 
 import org.ujmp.core.DenseMatrix;
 import org.ujmp.core.Matrix;
+import org.ujmp.core.SparseMatrix;
 import org.ujmp.core.calculation.Calculation;
 
 
-import static common.Utils.getUserSimilarityMatrix;
+import static common.Utils.*;
 
 /**
  * @version: 1.0
@@ -24,20 +25,38 @@ public class UserBasedCF {
     private Long itemCounts;
     private Matrix userSimilarityMatrix;
 
-    public UserBasedCF(Matrix ratingsMatrix, Integer K, String type) {
+
+    public UserBasedCF(Matrix ratingsMatrix, String type) {
         this.ratingsMatrix = ratingsMatrix;
-        this.K = K;
         this.type = type;
         this.userCounts = ratingsMatrix.getRowCount();
         this.itemCounts = ratingsMatrix.getColumnCount();
-        this.userSimilarityMatrix = getUserSimilarityMatrix(this.ratingsMatrix, this.type);
-        if (K != -1){
-            Matrix userNeighsSimilarityMatrix = DenseMatrix.Factory.zeros(this.userCounts,this.userCounts);
-            for(int i=0;i<this.userCounts;i++){
-//                userSimilarityMatrix.selectRows(Calculation.Ret.NEW,i)
+        this.userSimilarityMatrix = calcUserSimilarityMatrix(ratingsMatrix, type);
+    }
+
+    public Matrix CalcRatings() {
+        Matrix ratingsDiffMatrix = SparseMatrix.Factory.zeros(userCounts, itemCounts);
+        for (int i = 0; i < userCounts; i++) {
+            Matrix Ri = ratingsMatrix.selectRows(Calculation.Ret.NEW, i);
+            Double meanValue = Ri.getMeanValue();
+            for (int j = 0; j < itemCounts; j++) {
+                Double ratingDiff = ratingsDiffMatrix.getAsDouble(i, j) - meanValue;
+                ratingsDiffMatrix.setAsDouble(ratingDiff, i, j);
             }
         }
+        Matrix predictionsMatrix = userSimilarityMatrix.mtimes(ratingsDiffMatrix);
+        for (int i = 0; i < userCounts; i++) {
+            Matrix Ri = ratingsMatrix.selectRows(Calculation.Ret.NEW, i);
+            Matrix simi = userSimilarityMatrix.selectRows(Calculation.Ret.NEW, i);
+            Double meanValue = Ri.getMeanValue();
+            Double absValue = simi.getAbsoluteValueSum();
+            for (int j = 0; j < itemCounts; j++) {
+                predictionsMatrix.setAsDouble(predictionsMatrix.getAsDouble(i, j) / absValue + meanValue, i, j);
+            }
+        }
+        return predictionsMatrix;
     }
+
 
     public Matrix getRatingsMatrix() {
         return ratingsMatrix;
@@ -79,11 +98,13 @@ public class UserBasedCF {
         this.itemCounts = itemCounts;
     }
 
-    public Matrix getUserSimilarityMatrix(Matrix ratingsMatrix, String type) {
+    public Matrix getUserSimilarityMatrix() {
         return userSimilarityMatrix;
     }
 
     public void setUserSimilarityMatrix(Matrix userSimilarityMatrix) {
         this.userSimilarityMatrix = userSimilarityMatrix;
     }
+
+
 }
