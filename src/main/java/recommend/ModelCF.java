@@ -25,6 +25,14 @@ public class ModelCF {
     }
 
     public Matrix SGD(Integer K, Integer iterations, Double alpha, Double l, Double tol) {
+        /**
+         * @Method_name: SGD
+         * @Description: 随机梯度下降法
+         * @Date: 2017/10/8
+         * @Time: 14:10
+         * @param: [K, iterations, alpha, l, tol] K:矩阵的阶数 iterations:迭代次数 alpha学习速率 l 正则化系数,防止过拟合 tol 收敛判据
+         * @return: org.ujmp.core.Matrix
+         **/
         Matrix P = SparseMatrix.Factory.rand(userCounts, K);
         Matrix Q = SparseMatrix.Factory.rand(itemCounts, K);
         Matrix Qt = Q.transpose();
