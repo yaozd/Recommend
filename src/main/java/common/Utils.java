@@ -23,7 +23,7 @@ import java.util.*;
 public class Utils {
     public static Matrix readFileAsRatingsMatrix(String filepath) {
         /**
-         * @Method_name: readFileAsRatingsMatrix
+          @Method_name: readFileAsRatingsMatrix
          * @Description: 读取评分数据，构建评分矩阵
          * @Date: 2017/9/30
          * @Time: 14:26
@@ -83,7 +83,6 @@ public class Utils {
         try {
             Scanner in = new Scanner(new File(filepath));
             while (in.hasNext()) {
-                String str = in.nextLine();
                 itemsCount++;
             }
 
@@ -141,8 +140,7 @@ public class Utils {
                 }
             }
             return R_Tmp;
-        }
-        if (inp.equals("itemAverage")) {
+        }else{
             for (int j = 0; j < columnCount; j++) {
                 Matrix Rj = R_Tmp.selectColumns(Ret.NEW, j);
                 Double replaceValue = Rj.getValueSum();
@@ -160,7 +158,6 @@ public class Utils {
             }
             return R_Tmp;
         }
-        return R_Tmp;
     }
 
     public static Double calcSimilarity(Matrix x, Matrix y, String type) {
@@ -205,6 +202,8 @@ public class Utils {
             userSimilarityMatrix.setAsDouble(1.0, i, i);
             for (int j = i + 1; j < rowCounts; j++) {
                 Double similarity = calcSimilarity(ratingsMatrix.selectRows(Ret.NEW, i), ratingsMatrix.selectRows(Ret.NEW, j), type);
+                if(similarity.isNaN())
+                    similarity=0.0;
                 userSimilarityMatrix.setAsDouble(similarity, i, j);
                 userSimilarityMatrix.setAsDouble(similarity, j, i);
             }
@@ -215,7 +214,7 @@ public class Utils {
 
     public static Matrix calcItemsSimilarityMatrix(Matrix ratingsMatrix, String type) {
         /**
-         * @Method_name: calcItemsSimilarityMatrix
+          @Method_name: calcItemsSimilarityMatrix
          * @Description: 获取商品相似度矩阵
          * @Date: 2017/9/30
          * @Time: 16:38
