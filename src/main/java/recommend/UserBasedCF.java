@@ -1,6 +1,5 @@
 package recommend;
 
-import org.ujmp.core.DenseMatrix;
 import org.ujmp.core.Matrix;
 import org.ujmp.core.SparseMatrix;
 import org.ujmp.core.calculation.Calculation;
@@ -27,6 +26,14 @@ public class UserBasedCF {
 
 
     public UserBasedCF(Matrix ratingsMatrix, String type) {
+        /**
+         * @Method_name: UserBasedCF
+         * @Description: 构造方法，存储并初始化需要的变量
+         * @Date: 2017/10/5
+         * @Time: 19:37
+         * @param: [ratingsMatrix, type]
+         * @return:
+         **/
         this.ratingsMatrix = ratingsMatrix;
         this.type = type;
         this.userCounts = ratingsMatrix.getRowCount();
@@ -35,6 +42,14 @@ public class UserBasedCF {
     }
 
     public Matrix CalcRatings() {
+        /**
+        * @Method_name: CalcRatings
+        * @Description: 计算评分矩阵
+        * @Date: 2017/10/5
+        * @Time: 19:38
+        * @param: []
+        * @return: org.ujmp.core.Matrix
+        **/
         Matrix ratingsDiffMatrix = SparseMatrix.Factory.zeros(userCounts, itemCounts);
         for (int i = 0; i < userCounts; i++) {
             Matrix Ri = ratingsMatrix.selectRows(Calculation.Ret.NEW, i);
