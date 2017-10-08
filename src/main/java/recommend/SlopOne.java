@@ -20,13 +20,12 @@ import static common.Utils.calcItemsSimilarityMatrix;
 public class SlopOne {
     final static Logger logger = LoggerFactory.getLogger(SlopOne.class);
     private Matrix ratingsMatrix;
-    private String type;
     private Long userCounts;
     private Long itemCounts;
     private Matrix difMatrix;
     private Matrix nRatingsMatrix;
 
-    public SlopOne(Matrix ratingsMatrix, String type) {
+    public SlopOne(Matrix ratingsMatrix) {
         /**
          * @Method_name: SlopOne
          * @Description: 初始化变量
@@ -36,7 +35,6 @@ public class SlopOne {
          * @return:
          **/
         this.ratingsMatrix = ratingsMatrix;
-        this.type = type;
         this.userCounts = ratingsMatrix.getRowCount();
         this.itemCounts = ratingsMatrix.getColumnCount();
         this.difMatrix = SparseMatrix.Factory.zeros(itemCounts, itemCounts);
