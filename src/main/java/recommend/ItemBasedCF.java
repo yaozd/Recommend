@@ -2,6 +2,8 @@ package recommend;
 
 import org.ujmp.core.Matrix;
 import org.ujmp.core.calculation.Calculation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 import static common.Utils.calcItemsSimilarityMatrix;
@@ -16,6 +18,7 @@ import static common.Utils.calcItemsSimilarityMatrix;
  * @package_name: recommend
  */
 public class ItemBasedCF {
+    final static Logger logger = LoggerFactory.getLogger(ItemBasedCF.class);
     private Matrix ratingsMatrix;
     private Integer K;
     private String type;
@@ -32,6 +35,7 @@ public class ItemBasedCF {
          * @param: [ratingsMatrix, type]
          * @return:
          **/
+        logger.info("基于物品的协同过滤,初始化变量");
         this.ratingsMatrix = ratingsMatrix;
         this.type = type;
         this.userCounts = ratingsMatrix.getRowCount();
@@ -48,6 +52,7 @@ public class ItemBasedCF {
          * @param: []
          * @return: org.ujmp.core.Matrix
          **/
+        logger.info("计算评分矩阵开始");
         Matrix predictionsMatrix = ratingsMatrix.mtimes(Calculation.Ret.NEW, true, itemSimilarityMatrix);
         for (int j = 0; j < itemCounts; j++) {
             Matrix simi = itemSimilarityMatrix.selectColumns(Calculation.Ret.NEW, j);
@@ -58,6 +63,7 @@ public class ItemBasedCF {
                 predictionsMatrix.setAsDouble(predictionsMatrix.getAsDouble(i, j) / absValue, i, j);
             }
         }
+        logger.info("计算评分矩阵完成");
         return predictionsMatrix;
     }
 

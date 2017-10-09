@@ -6,7 +6,7 @@ import org.ujmp.core.calculation.Calculation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static common.Utils.calcItemsSimilarityMatrix;
+
 
 /**
  * @version: 1.0
@@ -51,6 +51,7 @@ public class SlopOne {
          * @param: []
          * @return: void
          **/
+        logger.info("建立相似性矩阵");
         for (int i = 0; i < itemCounts; i++) {
             for (int j = i + 1; j < itemCounts; j++) {
                 Double nCounts = 0.;
@@ -61,7 +62,6 @@ public class SlopOne {
                         diff += ratingsMatrix.getAsDouble(k, i) + ratingsMatrix.getAsDouble(k, j);
                     }
                 }
-                System.out.println(nCounts);
                 this.difMatrix.setAsDouble((diff + 1) / (nCounts + 1), i, j);
                 this.difMatrix.setAsDouble(difMatrix.getAsDouble(i, j), j, i);
                 this.nRatingsMatrix.setAsDouble(nCounts, i, j);
@@ -91,15 +91,11 @@ public class SlopOne {
                     Matrix nRatingsMatrixJ = nRatingsMatrix.selectColumns(Calculation.Ret.NEW, j);
                     Double nRatingsSum = nRatingsMatrixJ.getValueSum();
                     Double prediction = ratingsI.plus(difMatrixJ).mtimes(Calculation.Ret.NEW, true, nRatingsMatrixJ).getAsDouble(0, 0) / nRatingsSum;
-                    System.out.println(prediction);
-                    if (prediction > 5)
-                        prediction = 5.0;
-                    if (prediction < 1)
-                        prediction = 1.0;
                     predictionsMatrix.setAsDouble(prediction, i, j);
                 }
             }
         }
+        logger.info("计算评分矩阵完成");
         return predictionsMatrix;
     }
 

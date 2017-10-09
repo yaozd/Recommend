@@ -3,7 +3,8 @@ package recommend;
 import org.ujmp.core.Matrix;
 import org.ujmp.core.SparseMatrix;
 import org.ujmp.core.calculation.Calculation;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import static common.Utils.*;
 
@@ -17,6 +18,7 @@ import static common.Utils.*;
  * @package_name: recommend
  */
 public class UserBasedCF {
+    final static Logger logger = LoggerFactory.getLogger(ItemBasedCF.class);
     private Matrix ratingsMatrix;
     private Integer K;
     private String type;
@@ -34,6 +36,7 @@ public class UserBasedCF {
          * @param: [ratingsMatrix, type]
          * @return:
          **/
+        logger.info("基于用户的协同过滤,初始化变量");
         this.ratingsMatrix = ratingsMatrix;
         this.type = type;
         this.userCounts = ratingsMatrix.getRowCount();
@@ -50,6 +53,7 @@ public class UserBasedCF {
         * @param: []
         * @return: org.ujmp.core.Matrix
         **/
+        logger.info("计算评分矩阵开始");
         Matrix ratingsDiffMatrix = SparseMatrix.Factory.zeros(userCounts, itemCounts);
         for (int i = 0; i < userCounts; i++) {
             Matrix Ri = ratingsMatrix.selectRows(Calculation.Ret.NEW, i);
@@ -69,6 +73,7 @@ public class UserBasedCF {
                 predictionsMatrix.setAsDouble(predictionsMatrix.getAsDouble(i, j) / absValue + meanValue, i, j);
             }
         }
+        logger.info("计算评分矩阵结束");
         return predictionsMatrix;
     }
 
