@@ -18,7 +18,7 @@ import static common.Utils.*;
  * @package_name: recommend
  */
 public class UserBasedCF {
-    final static Logger logger = LoggerFactory.getLogger(ItemBasedCF.class);
+    final static Logger logger = LoggerFactory.getLogger(UserBasedCF.class);
     private Matrix ratingsMatrix;
     private Integer K;
     private String type;
@@ -37,29 +37,33 @@ public class UserBasedCF {
          * @return:
          **/
         logger.info("基于用户的协同过滤,初始化变量");
+        long startTime = System.currentTimeMillis();
         this.ratingsMatrix = ratingsMatrix;
         this.type = type;
         this.userCounts = ratingsMatrix.getRowCount();
         this.itemCounts = ratingsMatrix.getColumnCount();
         this.userSimilarityMatrix = calcUserSimilarityMatrix(ratingsMatrix, type);
+        Double runningTime = (System.currentTimeMillis() - startTime) / 1000.0;
+        logger.info("基于用户的协同过滤 初始化完成,用时 {} 秒.", runningTime);
     }
 
     public Matrix CalcRatings() {
         /**
-        * @Method_name: CalcRatings
-        * @Description: 计算评分矩阵
-        * @Date: 2017/10/5
-        * @Time: 19:38
-        * @param: []
-        * @return: org.ujmp.core.Matrix
-        **/
+         * @Method_name: CalcRatings
+         * @Description: 计算评分矩阵
+         * @Date: 2017/10/5
+         * @Time: 19:38
+         * @param: []
+         * @return: org.ujmp.core.Matrix
+         **/
         logger.info("计算评分矩阵开始");
+        long startTime = System.currentTimeMillis();
         Matrix ratingsDiffMatrix = SparseMatrix.Factory.zeros(userCounts, itemCounts);
         for (int i = 0; i < userCounts; i++) {
             Matrix Ri = ratingsMatrix.selectRows(Calculation.Ret.NEW, i);
             Double meanValue = Ri.getMeanValue();
             for (int j = 0; j < itemCounts; j++) {
-                Double ratingDiff = ratingsDiffMatrix.getAsDouble(i, j) - meanValue;
+                Double ratingDiff = ratingsMatrix.getAsDouble(i, j) - meanValue;
                 ratingsDiffMatrix.setAsDouble(ratingDiff, i, j);
             }
         }
@@ -73,7 +77,8 @@ public class UserBasedCF {
                 predictionsMatrix.setAsDouble(predictionsMatrix.getAsDouble(i, j) / absValue + meanValue, i, j);
             }
         }
-        logger.info("计算评分矩阵结束");
+        Double runningTime = (System.currentTimeMillis() - startTime) / 1000.0;
+        logger.info("计算评分矩阵完成,用时 {} 秒", runningTime);
         return predictionsMatrix;
     }
 
@@ -125,6 +130,5 @@ public class UserBasedCF {
     public void setUserSimilarityMatrix(Matrix userSimilarityMatrix) {
         this.userSimilarityMatrix = userSimilarityMatrix;
     }
-
 
 }
