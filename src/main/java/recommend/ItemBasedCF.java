@@ -36,11 +36,14 @@ public class ItemBasedCF {
          * @return:
          **/
         logger.info("基于物品的协同过滤,初始化变量");
+        long startTime = System.currentTimeMillis();
         this.ratingsMatrix = ratingsMatrix;
         this.type = type;
         this.userCounts = ratingsMatrix.getRowCount();
         this.itemCounts = ratingsMatrix.getColumnCount();
         this.itemSimilarityMatrix = calcItemsSimilarityMatrix(ratingsMatrix, type);
+        Double runningTime = (System.currentTimeMillis() - startTime) / 1000.0;
+        logger.info("初始化变量完成,用时 {} 秒", runningTime);
     }
 
     public Matrix CalcRatings() {
@@ -53,6 +56,7 @@ public class ItemBasedCF {
          * @return: org.ujmp.core.Matrix
          **/
         logger.info("计算评分矩阵开始");
+        long startTime = System.currentTimeMillis();
         Matrix predictionsMatrix = ratingsMatrix.mtimes(Calculation.Ret.NEW, true, itemSimilarityMatrix);
         for (int j = 0; j < itemCounts; j++) {
             Matrix simi = itemSimilarityMatrix.selectColumns(Calculation.Ret.NEW, j);
@@ -63,7 +67,8 @@ public class ItemBasedCF {
                 predictionsMatrix.setAsDouble(predictionsMatrix.getAsDouble(i, j) / absValue, i, j);
             }
         }
-        logger.info("计算评分矩阵完成");
+        Double runningTime = (System.currentTimeMillis() - startTime) / 1000.0;
+        logger.info("计算评分矩阵完成,用时 {} 秒", runningTime);
         return predictionsMatrix;
     }
 
