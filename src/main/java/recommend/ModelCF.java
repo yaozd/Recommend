@@ -62,10 +62,8 @@ public class ModelCF {
             for (int i = 0; i < userCounts; i++) {
                 for (int j = 0; j < itemCounts; j++) {
                     if (ratingsMatrix.getAsDouble(i, j) > 0) {
-//                        System.out.println(ratingsMatrix.getAsDouble(i, j) - P.selectRows(Calculation.Ret.NEW, i).mtimes(Qt.selectColumns(Calculation.Ret.NEW, j)).getAsDouble(0, 0));
-                        Double eij = round(ratingsMatrix.getAsDouble(i, j) - P.selectRows(Calculation.Ret.NEW, i).mtimes(Qt.selectColumns(Calculation.Ret.NEW, j)).getAsDouble(0, 0), 3);
-//                        System.out.println(eij);
-                        for (int k = 0; k < K; k++) {
+                      Double eij = round(ratingsMatrix.getAsDouble(i, j) - P.selectRows(Calculation.Ret.NEW, i).mtimes(Qt.selectColumns(Calculation.Ret.NEW, j)).getAsDouble(0, 0), 3);
+                       for (int k = 0; k < K; k++) {
                             Double Pik = round(alpha * (2 * eij * Qt.getAsDouble(k, j) - l * P.getAsDouble(i, k)), 0);
                             P.setAsDouble(round(P.getAsDouble(i, k), 0) + Pik, i, k);
                             Double Qtkj = round(alpha * (2 * eij * P.getAsDouble(i, k) - l * Qt.getAsDouble(k, j)), 0);
@@ -74,7 +72,6 @@ public class ModelCF {
                     }
                 }
             }
-//            System.out.println(P);
             Double cost = 0.;
             for (int i = 0; i < userCounts; i++) {
                 for (int j = 0; j < itemCounts; j++) {
@@ -117,5 +114,27 @@ public class ModelCF {
         return predictionsMatrix;
     }
 
+    public Matrix getRatingsMatrix() {
+        return ratingsMatrix;
+    }
 
+    public void setRatingsMatrix(Matrix ratingsMatrix) {
+        this.ratingsMatrix = ratingsMatrix;
+    }
+
+    public Long getUserCounts() {
+        return userCounts;
+    }
+
+    public void setUserCounts(Long userCounts) {
+        this.userCounts = userCounts;
+    }
+
+    public Long getItemCounts() {
+        return itemCounts;
+    }
+
+    public void setItemCounts(Long itemCounts) {
+        this.itemCounts = itemCounts;
+    }
 }
