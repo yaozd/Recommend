@@ -21,6 +21,14 @@ import static common.Utils.*;
 
 public class Main {
     public static void printResult(Matrix predictionsMatrix) {
+        /**
+         * @Method_name: printResult
+         * @Description: 循环输出结果矩阵
+         * @Date: 2017/10/10
+         * @Time: 15:15
+         * @param: [predictionsMatrix]
+         * @return: void
+         **/
         System.out.println(predictionsMatrix.getRowCount());
         System.out.println(predictionsMatrix.getColumnCount());
         for (int i = 0; i < predictionsMatrix.getRowCount(); i++) {
