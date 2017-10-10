@@ -34,9 +34,12 @@ public class ModelCF {
          * @return:
          **/
         logger.info("ModelCF 初始化");
+        long startTime = System.currentTimeMillis();
         this.ratingsMatrix = ratingsMatrix;
         this.userCounts = ratingsMatrix.getRowCount();
         this.itemCounts = ratingsMatrix.getColumnCount();
+        Double runningTime = (System.currentTimeMillis() - startTime) / 1000.0;
+        logger.info("初始化变量完成,用时 {} 秒", runningTime);
     }
 
     public Matrix SGD(Integer K, Integer iterations, Double alpha, Double l, Double tol) {
@@ -49,6 +52,7 @@ public class ModelCF {
          * @return: org.ujmp.core.Matrix
          **/
         logger.info("调用SGD随机梯度下降法开始");
+        long startTime = System.currentTimeMillis();
         Matrix P = SparseMatrix.Factory.randn(userCounts, K);
         Matrix Q = SparseMatrix.Factory.randn(itemCounts, K);
         Matrix Qt = Q.transpose();
@@ -87,24 +91,30 @@ public class ModelCF {
             if (cost < tol)
                 break;
         }
-        logger.info("调用SGD方法结束.");
+        Double runningTime = (System.currentTimeMillis() - startTime) / 1000.0;
+        logger.info("调用SGD方法结束,用时 {} 秒", runningTime);
         return P.mtimes(Qt);
     }
 
     public Matrix SVD(String inp) {
         /**
-        * @Method_name: SVD
-        * @Description: 使用svd分解后聚合，但是目前该矩阵类并没有截断方法
-        * @Date: 2017/10/9
-        * @Time: 10:59
-        * @param: [inp] 选择插值的方法
-        * @return: org.ujmp.core.Matrix
-        **/
+         * @Method_name: SVD
+         * @Description: 使用svd分解后聚合，但是目前该矩阵类并没有截断方法
+         * @Date: 2017/10/9
+         * @Time: 10:59
+         * @param: [inp] 选择插值的方法
+         * @return: org.ujmp.core.Matrix
+         **/
+        logger.info("调用SVD方法开始");
+        long startTime = System.currentTimeMillis();
         if (inp.equalsIgnoreCase("none")) {
             this.ratingsMatrix = impulation(ratingsMatrix, inp);
         }
         Matrix[] featuresMatrix = ratingsMatrix.svd();
-        return featuresMatrix[0].mtimes(featuresMatrix[1]).mtimes(featuresMatrix[2].transpose());
+        Matrix predictionsMatrix = featuresMatrix[0].mtimes(featuresMatrix[1]).mtimes(featuresMatrix[2].transpose());
+        Double runningTime = (System.currentTimeMillis() - startTime) / 1000.0;
+        logger.info("调用SVD方法结束,用时 {} 秒", runningTime);
+        return predictionsMatrix;
     }
 
 
