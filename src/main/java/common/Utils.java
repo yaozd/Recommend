@@ -6,6 +6,7 @@ import org.ujmp.core.SparseMatrix;
 import org.ujmp.core.calculation.Calculation.Ret;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.*;
 
@@ -23,8 +24,8 @@ import java.util.*;
 public class Utils {
     public static Matrix readFileAsRatingsMatrix(String filepath) {
         /**
-          @Method_name: readFileAsRatingsMatrix
-         * @Description: 读取评分数据，构建评分矩阵
+         @Method_name: readFileAsRatingsMatrix
+          * @Description: 读取评分数据，构建评分矩阵
          * @Date: 2017/9/30
          * @Time: 14:26
          * @param: [filepath]文件路径
@@ -36,8 +37,8 @@ public class Utils {
             Scanner in = new Scanner(new File(filepath));
             while (in.hasNext()) {
                 String str = in.nextLine();
-                Double user = Double.parseDouble(str.split("\t")[0]);
-                Double item = Double.parseDouble(str.split("\t")[1]);
+                Double user = Double.parseDouble(str.split("\t")[0]) - 1;
+                Double item = Double.parseDouble(str.split("\t")[1]) - 1;
                 userSet.add(user);
                 itemSet.add(item);
             }
@@ -83,6 +84,7 @@ public class Utils {
         try {
             Scanner in = new Scanner(new File(filepath));
             while (in.hasNext()) {
+                String str = in.nextLine();
                 itemsCount++;
             }
 
@@ -92,11 +94,12 @@ public class Utils {
 
         Matrix itemsFeatureMatrix = SparseMatrix.Factory.zeros(itemsCount, featuresCount);
         try {
-            Scanner in = new Scanner(new File(filepath));
+            Scanner in = new Scanner(new FileInputStream(filepath));
             Integer startIndx = 5;
+            Integer count = 0;
             while (in.hasNext()) {
+                count++;
                 String str = in.nextLine();
-                System.out.println(str);
                 String[] content = str.split("\\|");
                 Long itemId = Long.parseLong(content[0]) - 1;
                 for (int i = startIndx; i < content.length; i++) {
@@ -140,7 +143,7 @@ public class Utils {
                 }
             }
             return R_Tmp;
-        }else{
+        } else {
             for (int j = 0; j < columnCount; j++) {
                 Matrix Rj = R_Tmp.selectColumns(Ret.NEW, j);
                 Double replaceValue = Rj.getValueSum();
@@ -202,8 +205,8 @@ public class Utils {
             userSimilarityMatrix.setAsDouble(1.0, i, i);
             for (int j = i + 1; j < rowCounts; j++) {
                 Double similarity = calcSimilarity(ratingsMatrix.selectRows(Ret.NEW, i), ratingsMatrix.selectRows(Ret.NEW, j), type);
-                if(similarity.isNaN())
-                    similarity=0.0;
+                if (similarity.isNaN())
+                    similarity = 0.0;
                 userSimilarityMatrix.setAsDouble(similarity, i, j);
                 userSimilarityMatrix.setAsDouble(similarity, j, i);
             }
@@ -214,8 +217,8 @@ public class Utils {
 
     public static Matrix calcItemsSimilarityMatrix(Matrix ratingsMatrix, String type) {
         /**
-          @Method_name: calcItemsSimilarityMatrix
-         * @Description: 获取商品相似度矩阵
+         @Method_name: calcItemsSimilarityMatrix
+          * @Description: 获取商品相似度矩阵
          * @Date: 2017/9/30
          * @Time: 16:38
          * @param: [ratingsMatrix, type]
