@@ -105,5 +105,43 @@ public class SlopOne {
         return predictionsMatrix;
     }
 
+    public Matrix getRatingsMatrix() {
+        return ratingsMatrix;
+    }
 
+    public void setRatingsMatrix(Matrix ratingsMatrix) {
+        this.ratingsMatrix = ratingsMatrix;
+    }
+
+    public Long getUserCounts() {
+        return userCounts;
+    }
+
+    public void setUserCounts(Long userCounts) {
+        this.userCounts = userCounts;
+    }
+
+    public Long getItemCounts() {
+        return itemCounts;
+    }
+
+    public void setItemCounts(Long itemCounts) {
+        this.itemCounts = itemCounts;
+    }
+
+    public Matrix getDifMatrix() {
+        return difMatrix;
+    }
+
+    public void setDifMatrix(Matrix difMatrix) {
+        this.difMatrix = difMatrix;
+    }
+
+    public Matrix getnRatingsMatrix() {
+        return nRatingsMatrix;
+    }
+
+    public void setnRatingsMatrix(Matrix nRatingsMatrix) {
+        this.nRatingsMatrix = nRatingsMatrix;
+    }
 }
