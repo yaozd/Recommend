@@ -7,7 +7,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
-
 /**
  * @version: 1.0
  * @author: Liujm
@@ -34,12 +33,15 @@ public class SlopOne {
          * @param: [ratingsMatrix, type]
          * @return:
          **/
+        logger.info("SlopOne 初始化变量.");
+        long startTime = System.currentTimeMillis();
         this.ratingsMatrix = ratingsMatrix;
         this.userCounts = ratingsMatrix.getRowCount();
         this.itemCounts = ratingsMatrix.getColumnCount();
         this.difMatrix = SparseMatrix.Factory.zeros(itemCounts, itemCounts);
         this.nRatingsMatrix = SparseMatrix.Factory.zeros(itemCounts, itemCounts);
-        logger.info("SlopOne 初始化完成");
+        Double runningTime = (System.currentTimeMillis() - startTime) / 1000.0;
+        logger.info("SlopOne 初始化完成,用时 {} 秒.", runningTime);
     }
 
     private void BuildSimilarityMatrix() {
@@ -51,7 +53,8 @@ public class SlopOne {
          * @param: []
          * @return: void
          **/
-        logger.info("建立相似性矩阵");
+        logger.info("建立差值相似性矩阵");
+        long startTime = System.currentTimeMillis();
         for (int i = 0; i < itemCounts; i++) {
             for (int j = i + 1; j < itemCounts; j++) {
                 Double nCounts = 0.;
@@ -68,7 +71,8 @@ public class SlopOne {
                 this.nRatingsMatrix.setAsDouble(nCounts, j, i);
             }
         }
-        logger.info("建立相似性矩阵完成");
+        Double runningTime = (System.currentTimeMillis() - startTime) / 1000.0;
+        logger.info("建立差值相似性矩阵完成,用时 {} 秒.", runningTime);
     }
 
     public Matrix CalcRatings() {
@@ -83,6 +87,7 @@ public class SlopOne {
         Matrix predictionsMatrix = SparseMatrix.Factory.zeros(userCounts, itemCounts);
         BuildSimilarityMatrix();
         logger.info("计算评分矩阵");
+        long startTime = System.currentTimeMillis();
         for (int i = 0; i < userCounts; i++) {
             for (int j = 0; j < itemCounts; j++) {
                 if (ratingsMatrix.getAsDouble(i, j) == 0) {
@@ -95,7 +100,8 @@ public class SlopOne {
                 }
             }
         }
-        logger.info("计算评分矩阵完成");
+        Double runningTime = (System.currentTimeMillis() - startTime) / 1000.0;
+        logger.info("计算评分矩阵完成,用时 {} 秒", runningTime);
         return predictionsMatrix;
     }
 
