@@ -84,4 +84,52 @@ public class HybridCbfCF {
         logger.info("使用效用矩阵增加用户类型特征进行推荐完成,用时 {} 秒", runningTime);
         return predictionsMatrix;
     }
+
+    public Matrix getRatingsMatrix() {
+        return ratingsMatrix;
+    }
+
+    public void setRatingsMatrix(Matrix ratingsMatrix) {
+        this.ratingsMatrix = ratingsMatrix;
+    }
+
+    public Matrix getItemsFeatureMatrix() {
+        return itemsFeatureMatrix;
+    }
+
+    public void setItemsFeatureMatrix(Matrix itemsFeatureMatrix) {
+        this.itemsFeatureMatrix = itemsFeatureMatrix;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public Long getUserCounts() {
+        return userCounts;
+    }
+
+    public void setUserCounts(Long userCounts) {
+        this.userCounts = userCounts;
+    }
+
+    public Long getItemCounts() {
+        return itemCounts;
+    }
+
+    public void setItemCounts(Long itemCounts) {
+        this.itemCounts = itemCounts;
+    }
+
+    public Long getItemFeaturesCounts() {
+        return itemFeaturesCounts;
+    }
+
+    public void setItemFeaturesCounts(Long itemFeaturesCounts) {
+        this.itemFeaturesCounts = itemFeaturesCounts;
+    }
 }
