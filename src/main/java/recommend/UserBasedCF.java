@@ -26,7 +26,6 @@ public class UserBasedCF {
     private Long itemCounts;
     private Matrix userSimilarityMatrix;
 
-
     public UserBasedCF(Matrix ratingsMatrix, String type) {
         /**
          * @Method_name: UserBasedCF
@@ -79,6 +78,8 @@ public class UserBasedCF {
         }
         Double runningTime = (System.currentTimeMillis() - startTime) / 1000.0;
         logger.info("计算评分矩阵完成,用时 {} 秒", runningTime);
+        Double cost = getMSE(ratingsMatrix, predictionsMatrix);
+        logger.info("平均误差为{}.", cost);
         return predictionsMatrix;
     }
 

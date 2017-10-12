@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 
 
 import static common.Utils.calcItemsSimilarityMatrix;
+import static common.Utils.getMSE;
 
 /**
  * @version: 1.0
@@ -69,6 +70,8 @@ public class ItemBasedCF {
         }
         Double runningTime = (System.currentTimeMillis() - startTime) / 1000.0;
         logger.info("计算评分矩阵完成,用时 {} 秒", runningTime);
+        Double cost = getMSE(ratingsMatrix, predictionsMatrix);
+        logger.info("平均误差为{}.", cost);
         return predictionsMatrix;
     }
 

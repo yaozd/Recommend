@@ -52,13 +52,13 @@ public class HybridCbfCF {
 
     public Matrix CalcRatings() {
         /**
-        * @Method_name: CalcRatings
-        * @Description: 计算评分矩阵,将效用矩阵用用户特征向量进行扩充，计算用户相关性系数，计算评分
-        * @Date: 2017/10/10
-        * @Time: 15:02
-        * @param: []
-        * @return: org.ujmp.core.Matrix
-        **/
+         * @Method_name: CalcRatings
+         * @Description: 计算评分矩阵, 将效用矩阵用用户特征向量进行扩充，计算用户相关性系数，计算评分
+         * @Date: 2017/10/10
+         * @Time: 15:02
+         * @param: []
+         * @return: org.ujmp.core.Matrix
+         **/
         logger.info("使用效用矩阵增加用户类型特征进行推荐");
         long startTime = System.currentTimeMillis();
         Matrix ratingsAndFeatsMatrix = SparseMatrix.Factory.zeros(userCounts, itemCounts + itemFeaturesCounts);
@@ -80,6 +80,15 @@ public class HybridCbfCF {
         }
         Matrix userSimilarityMatrix = calcUserSimilarityMatrix(ratingsAndFeatsMatrix, "cosine");
         Matrix predictionsMatrix = userSimilarityMatrix.mtimes(ratingsMatrix);
+        for (int i = 0; i < userCounts; i++) {
+            Matrix Ri = ratingsMatrix.selectRows(Calculation.Ret.NEW, i);
+            Matrix simi = userSimilarityMatrix.selectRows(Calculation.Ret.NEW, i);
+//            Double meanValue = Ri.getMeanValue();
+            Double absValue = simi.getAbsoluteValueSum();
+            for (int j = 0; j < itemCounts; j++) {
+                predictionsMatrix.setAsDouble(predictionsMatrix.getAsDouble(i, j) / absValue , i, j);
+            }
+        }
         Double runningTime = (System.currentTimeMillis() - startTime) / 1000.0;
         logger.info("使用效用矩阵增加用户类型特征进行推荐完成,用时 {} 秒", runningTime);
         return predictionsMatrix;

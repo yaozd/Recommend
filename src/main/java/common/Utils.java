@@ -10,6 +10,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.*;
 
+import static org.ujmp.core.util.MathUtil.round;
+
 
 /**
  * @version: 1.0
@@ -228,4 +230,67 @@ public class Utils {
     }
 
 
+    public static Double getMSE(Matrix ratingsMatrix, Matrix predictionsMatrix) {
+        /**
+        * @Method_name: getCostFunction
+        * @Description: 均方误差计算方法,如果需要修改可以
+        * @Date: 2017/10/12
+        * @Time: 16:43
+        * @param: [ratingsMatrix, predictionsMatrix]
+        * @return: java.lang.Double
+        **/
+        Double cost = 0.;
+        Long counts = 0L;
+        Long userCounts = ratingsMatrix.getRowCount();
+        Long itemCounts = ratingsMatrix.getColumnCount();
+        for (int i = 0; i < userCounts; i++) {
+            for (int j = 0; j < itemCounts; j++) {
+                if (ratingsMatrix.getAsDouble(i, j) > 0) {
+                    counts += 1;
+                    cost += Math.pow(round(ratingsMatrix.getAsDouble(i, j), 2) - round(predictionsMatrix.getAsDouble(i, j), 2), 2);
+                }
+
+            }
+        }
+        return cost / counts;
+    }
+
+
+    public static Matrix getSubMatrix(Matrix matrix, Long row, Long col) {
+        /**
+         * @Method_name: getSubMatrix
+         * @Description: 取矩阵的集
+         * @Date: 2017/10/12
+         * @Time: 16:24
+         * @param: [matrix, row, col]
+         * @return: org.ujmp.core.Matrix
+         **/
+        Matrix subMatrix = Matrix.Factory.zeros(row, col);
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++)
+                subMatrix.setAsDouble(matrix.getAsDouble(i, j), i, j);
+        }
+        return subMatrix;
+    }
+
+    public static Matrix modifyIllegalValue(Matrix matrix) {
+        /**
+        * @Method_name: modifyIllegalValue
+        * @Description: 过滤非法评分的方法，如果有其他要求修改本方法
+        * @Date: 2017/10/12
+        * @Time: 16:42
+        * @param: [matrix]
+        * @return: org.ujmp.core.Matrix
+        **/
+        Matrix ratingsMatrix=matrix;
+        Long row = matrix.getRowCount();
+        Long col = matrix.getColumnCount();
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++) {
+                if (ratingsMatrix.getAsDouble(i, j) < 0)
+                    ratingsMatrix.setAsDouble(0, i, j);
+            }
+        }
+        return ratingsMatrix;
+    }
 }
