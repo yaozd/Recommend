@@ -25,6 +25,7 @@ public class ModelCF {
     private Matrix ratingsMatrix;
     private Long userCounts;
     private Long itemCounts;
+    private Matrix impulationRatingsMatrix;
 
     public ModelCF(Matrix ratingsMatrix) {
         /**
@@ -38,6 +39,7 @@ public class ModelCF {
         logger.info("ModelCF 初始化");
         long startTime = System.currentTimeMillis();
         this.ratingsMatrix = ratingsMatrix;
+        this.impulationRatingsMatrix=impulation(ratingsMatrix,"item");
         this.userCounts = ratingsMatrix.getRowCount();
         this.itemCounts = ratingsMatrix.getColumnCount();
         Double runningTime = (System.currentTimeMillis() - startTime) / 1000.0;
@@ -118,6 +120,7 @@ public class ModelCF {
         Matrix Q = Matrix.Factory.rand(itemCounts, K);
         Matrix Qt = Q.transpose();
         Matrix mask = Matrix.Factory.zeros(userCounts, itemCounts);
+        Matrix predictionsMatrix = Matrix.Factory.zeros(userCounts, itemCounts);
         for (int i = 0; i < userCounts; i++) {
             for (int j = 0; j < itemCounts; j++) {
                 if (ratingsMatrix.getAsDouble(i, j) > 0)
@@ -154,19 +157,57 @@ public class ModelCF {
                     Qt.setAsDouble(round(qj.getAsDouble(k, 0), 1), k, j);
                 }
             }
-            Matrix predictionsMatrix = P.mtimes(Qt);
+            predictionsMatrix = P.mtimes(Qt);
             Double cost = getMSE(ratingsMatrix, predictionsMatrix);
             Double itRunTime = (System.currentTimeMillis() - itStartTime) / 1000.0;
             logger.info("平均误差为{}.", cost);
             logger.info("第 {} 次迭代,误差是 {}.本次迭代时间:{}.", it, cost, itRunTime);
             if (cost < tol) break;
         }
-        Matrix predictionsMatrix = modifyIllegalValue(P.mtimes(Qt));
         Double runningTime = (System.currentTimeMillis() - startTime) / 1000.0;
         logger.info("调用ALS方法结束,用时 {} 秒", runningTime);
 
         return predictionsMatrix;
     }
+
+    public Matrix NMF(Integer iterations, Integer K, Double tol) {
+        logger.info("调用NMF非负矩阵分解开始");
+        long startTime = System.currentTimeMillis();
+        Matrix P = Matrix.Factory.rand(userCounts, K);
+        Matrix Q = Matrix.Factory.rand(itemCounts, K);
+        Matrix Qt = Q.transpose();
+        Matrix predictionsMatrix = Matrix.Factory.zeros(userCounts, itemCounts);
+//        输入参数：X,R,MaxIter,x为被分解的矩阵，r为降阶后的B的秩,MaxIter为迭代次数
+//        输出：B,H
+//        1)初始化矩阵B,H为非负矩阵，同时对B的每一列数据做归一化处理
+//        2)for i=1:MaxIter
+//        a)更新H矩阵每一行元素：H(i,j)=H(i,j)*(B'*X)(i,j)/(B'*B*H)(i,j)
+//        b)更新B矩阵的每一列元素：B(k,j)=B(k,j)*(X*H')(k,j)/(B*H*H')(k,j);
+//        c)重新对B进行列归一化
+//        3)end
+        for (int it = 0; it < iterations; it++) {
+            Long itStartTime = System.currentTimeMillis();
+            Qt = roundMatrix(roundMatrix(Qt.times(P.transpose().mtimes(impulationRatingsMatrix)),2).divide(roundMatrix((P.transpose().mtimes(P)).mtimes(Qt),2)),2);
+            P = roundMatrix(P.times(impulationRatingsMatrix.mtimes(Qt.transpose())),2).divide(roundMatrix(P.mtimes(Qt.mtimes(Qt.transpose())),2));
+            for(int j=0;j<P.getColumnCount();j++){
+                Double sumj=P.selectColumns(Calculation.Ret.NEW,j).getValueSum();
+                for(int i=0;i<P.getRowCount();i++){
+                    P.setAsDouble(P.getAsDouble(i,j)/sumj,i,j);
+                }
+            }
+            predictionsMatrix = P.mtimes(Qt);
+            Double cost = getMSE(ratingsMatrix, predictionsMatrix);
+            Double itRunTime = (System.currentTimeMillis() - itStartTime) / 1000.0;
+            logger.info("平均误差为{}.", cost);
+            logger.info("第 {} 次迭代,误差是 {}.本次迭代时间:{}.", it + 1, cost, itRunTime);
+            if (cost < tol) break;
+        }
+        Double runningTime = (System.currentTimeMillis() - startTime) / 1000.0;
+        logger.info("调用NMF方法结束,用时 {} 秒", runningTime);
+
+        return predictionsMatrix;
+    }
+
 
     public Matrix SVD(String inp, Integer K) {
         /**
@@ -180,18 +221,18 @@ public class ModelCF {
         logger.info("调用SVD方法开始");
         long startTime = System.currentTimeMillis();
         if (inp.equalsIgnoreCase("none")) {
-            this.ratingsMatrix = impulation(ratingsMatrix, inp);
+            this.impulationRatingsMatrix = impulation(ratingsMatrix, inp);
         }
-        Matrix[] featuresMatrix = ratingsMatrix.svd();
+        Matrix[] featuresMatrix = impulationRatingsMatrix.svd();
         Matrix userFeaturesMatrix = getSubMatrix(featuresMatrix[0], userCounts, K.longValue());
         Matrix singularValueMatrix = getSubMatrix(featuresMatrix[1], K.longValue(), K.longValue());
         Matrix itemFeaturesMatrix = getSubMatrix(featuresMatrix[2], itemCounts, K.longValue());
         logger.info("矩阵userFeaturesMatrix的行列数{},{}", userFeaturesMatrix.getRowCount(), userFeaturesMatrix.getColumnCount());
-        System.out.println(userFeaturesMatrix);
+//        System.out.println(userFeaturesMatrix);
         logger.info("矩阵singularValueMatrix的行列数{},{}", singularValueMatrix.getRowCount(), singularValueMatrix.getColumnCount());
-        System.out.println(singularValueMatrix);
+//        System.out.println(singularValueMatrix);
         logger.info("矩阵itemFeaturesMatrix的行列数{},{}", itemFeaturesMatrix.getRowCount(), itemFeaturesMatrix.getColumnCount());
-        System.out.println(itemFeaturesMatrix);
+//        System.out.println(itemFeaturesMatrix);
         Matrix predictionsMatrix = userFeaturesMatrix.mtimes(singularValueMatrix).mtimes(itemFeaturesMatrix.transpose());
 
         Double runningTime = (System.currentTimeMillis() - startTime) / 1000.0;

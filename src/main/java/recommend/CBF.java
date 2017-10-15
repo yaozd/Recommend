@@ -99,6 +99,14 @@ public class CBF {
     }
 
     public Matrix CBFRegression(Double alpha, Double l, Integer iterations, Double tol) {
+        /**
+        * @Method_name: CBFRegression
+        * @Description: 回归获取特征
+        * @Date: 2017/10/12
+        * @Time: 16:50
+        * @param: [alpha, l, iterations, tol]
+        * @return: org.ujmp.core.Matrix
+        **/
         logger.info("使用正则化线性回归进行推荐");
         long startTime = System.currentTimeMillis();
         Matrix itemsFeatureMatrix2 = SparseMatrix.Factory.ones(itemCounts, itemFeaturesCounts + 1);

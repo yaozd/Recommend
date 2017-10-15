@@ -31,7 +31,7 @@ public class Main {
          * @param: [predictionsMatrix]
          * @return: void
          **/
-        logger.info("行数:{},列数:{}",predictionsMatrix.getRowCount(),predictionsMatrix.getColumnCount());
+        logger.info("行数:{},列数:{}", predictionsMatrix.getRowCount(), predictionsMatrix.getColumnCount());
         for (int i = 0; i < predictionsMatrix.getRowCount(); i++) {
             System.out.println(predictionsMatrix.selectRows(Calculation.Ret.NEW, i));
         }
@@ -56,24 +56,25 @@ public class Main {
         printResult(predictionsMatrix);
     }
 
-    public static void testModeCF(Matrix ratingsMatrix) {
+    public static void testSGD(Matrix ratingsMatrix) {
         //**当alpha =0.008左右的时候才收敛 - 原因未知**
         ModelCF modelCF = new ModelCF(ratingsMatrix);
 //        Matrix predictionsMatrix = modelCF.SVD("userAverage");
-        Matrix predictionsMatrix = modelCF.SGD(20, 30, 0.008, 0.008, 0.001);
-        printResult(predictionsMatrix);
+        Matrix predictionsMatrix = modelCF.SGD(50, 50, 0.008, 0.008, 0.001);
+//        printResult(predictionsMatrix);
     }
 
-    public static void testALS(Matrix ratingsMatrix){
+    public static void testALS(Matrix ratingsMatrix) {
         ModelCF modelCF = new ModelCF(ratingsMatrix);
-        Matrix predictionsMatrix = modelCF.ALS(20,10,0.01,0.01);
+        Matrix predictionsMatrix = modelCF.ALS(20, 1000, 0.01, 0.01);
         printResult(predictionsMatrix);
     }
 
     public static void testSVD(Matrix ratingsMatrix) {
         ModelCF modelCF = new ModelCF(ratingsMatrix);
-        Matrix predictionsMatrix = modelCF.SVD("userAverage", 50);
+        Matrix predictionsMatrix = modelCF.SVD("item", 80);
 //        printResult(predictionsMatrix);
+        System.out.println(predictionsMatrix.selectRows(Calculation.Ret.NEW, 1));
     }
 
 
@@ -95,10 +96,34 @@ public class Main {
         printResult(predictionsMatrix);
     }
 
+    public static void testNMF(Matrix ratingsMatrix) {
+        ModelCF modelCF = new ModelCF(ratingsMatrix);
+        Matrix predictionsMatrix = modelCF.NMF(50, 20, 0.01);
+//        printResult(predictionsMatrix);
+//        System.out.println(predictionsMatrix);
+        System.out.println(predictionsMatrix.selectRows(Calculation.Ret.NEW, 1));
+    }
+
+    public static void testBaselinePredictor(Matrix ratingsMatrix) {
+        BaselinePredictor baselinePredictor = new BaselinePredictor(ratingsMatrix, 25, 10);
+        Matrix predictionsMatrix = baselinePredictor.CalcRatings();
+        printResult(predictionsMatrix);
+    }
+
+    public static void SVDTest(Matrix ratingsMatrix) {
+        SVD svd = new SVD(ratingsMatrix, 25, 10,"userAverage");
+        Matrix predictionsMatrix = svd.CalcRatings(20,100, 0.001, 0.02);
+//        printResult(predictionsMatrix);
+    }
+
     public static void main(String[] args) {
         Matrix ratingsMatrix = readFileAsRatingsMatrix("D:\\work\\liujm\\2017\\9\\20170911\\ml-100k\\ml-100k\\u.data");
 //        Matrix itemsFeatureMatrix = readFileAsItemsFeatureMatrix("D:\\work\\liujm\\2017\\9\\20170911\\ml-100k\\ml-100k\\u.item");
-        testALS(ratingsMatrix);
+//        Matrix matrix = Matrix.Factory.rand(5,5);
+//        SVDTest(ratingsMatrix);
+        SVDTest(ratingsMatrix);
+//        System.out.println(matrix);
+//        System.out.println(ratingsMatrix.selectRows(Calculation.Ret.NEW,1));
 
     }
 

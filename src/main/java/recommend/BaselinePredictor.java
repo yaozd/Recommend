@@ -35,53 +35,10 @@ public class BaselinePredictor {
         this.userCounts = ratingsMatrix.getRowCount();
         this.itemCounts = ratingsMatrix.getColumnCount();
         this.ratingsMatrix = ratingsMatrix;
-        this.allMeanValue = getAllMeanValue();
-        getColumnDiffMap(lambda2);
-        getRowDiffMap(lambda1);
+        this.allMeanValue = getAllMeanValue(ratingsMatrix);
+        this.columnDiffMap = getColumnDiffMap(ratingsMatrix, lambda1);
+        this.rowDiffMap = getRowDiffMap(ratingsMatrix, lambda2, columnDiffMap);
         logger.info("BaselinePredictor基准预测 初始化完成");
-    }
-
-    private void getColumnDiffMap(Integer lambda1) {
-        for (int j = 0; j < itemCounts; j++) {
-            Integer counts = lambda1;
-            Double sum = 0.;
-            for (int i = 0; i < userCounts; i++) {
-                if (ratingsMatrix.getAsDouble(i, j) > 0) {
-                    counts += 1;
-                    sum += ratingsMatrix.getAsDouble(i, j) - allMeanValue;
-                }
-            }
-            columnDiffMap.put(j, round(sum / counts, 3));
-        }
-    }
-
-    private void getRowDiffMap(Integer lambda2) {
-        for (int i = 0; i < userCounts; i++) {
-            Double sum = 0.;
-            Integer counts = lambda2;
-            for (int j = 0; j < itemCounts; j++) {
-                if (ratingsMatrix.getAsDouble(i, j) > 0) {
-                    sum += ratingsMatrix.getAsDouble(i, j) - allMeanValue - columnDiffMap.get(j);
-                    counts += 1;
-                }
-            }
-            rowDiffMap.put(i, round(sum / counts, 3));
-        }
-    }
-
-
-    private Double getAllMeanValue() {
-        Double sum = 0.;
-        Integer counts = 0;
-        for (int i = 0; i < userCounts; i++) {
-            for (int j = 0; j < itemCounts; j++) {
-                if (ratingsMatrix.getAsDouble(i, j) > 0) {
-                    sum += ratingsMatrix.getAsDouble(i, j);
-                    counts += 1;
-                }
-            }
-        }
-        return round(sum / counts, 3);
     }
 
 
@@ -89,7 +46,6 @@ public class BaselinePredictor {
         logger.info("调用BaselinePredictor基准预测 开始");
         long startTime = System.currentTimeMillis();
         Matrix predictionsMatrix = Matrix.Factory.zeros(userCounts, itemCounts);
-        Double allMeanValue = getAllMeanValue();
         for (int i = 0; i < userCounts; i++) {
             Double diffI = rowDiffMap.get(i);
             for (int j = 0; j < itemCounts; j++) {
